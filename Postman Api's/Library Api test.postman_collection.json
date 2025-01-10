@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "ebe0ccdf-8103-4338-8bbe-cdc547e35bcd",
+		"name": "Library Api test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28966214",
+		"_collection_link": "https://grey-astronaut-84455.postman.co/workspace/IIH-Training~850152c8-721a-4e57-b6e4-7cd43e7bcaa7/collection/28966214-ebe0ccdf-8103-4338-8bbe-cdc547e35bcd?action=share&source=collection_link&creator=28966214"
+	},
+	"item": [
+		{
+			"name": "Get Book by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rahulshettyacademy.com/Library/GetBook.php?ID={{NewID}}",
+					"protocol": "https",
+					"host": [
+						"rahulshettyacademy",
+						"com"
+					],
+					"path": [
+						"Library",
+						"GetBook.php"
+					],
+					"query": [
+						{
+							"key": "ID",
+							"value": "{{NewID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a new book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"pm.collectionVariables.set(\"NewID\" , pm.response.json().ID)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"AuthorName\" , pm.variables.replaceIn(\"{{$randomFullName}}\"))\r",
+							"pm.collectionVariables.set(\"AisleBook\" , pm.variables.replaceIn(\"{{$randomBankAccount}}\"))\r",
+							"pm.collectionVariables.set(\"isbnBook\" , pm.variables.replaceIn(\"{{$randomBankAccount}}\"))\r",
+							"pm.collectionVariables.set(\"BookName\" , pm.variables.replaceIn(\"{{$randomFileExt}}\"))"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\":\"{{BookName}}\",\r\n\"isbn\":\"{{isbnBook}}\",\r\n\"aisle\":\"{{AisleBook}}\",\r\n\"author\":\"{{AuthorName}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://rahulshettyacademy.com/Library/Addbook.php",
+					"protocol": "https",
+					"host": [
+						"rahulshettyacademy",
+						"com"
+					],
+					"path": [
+						"Library",
+						"Addbook.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Book By id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ID\":\"{{NewID}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://rahulshettyacademy.com/Library/DeleteBook.php",
+					"protocol": "https",
+					"host": [
+						"rahulshettyacademy",
+						"com"
+					],
+					"path": [
+						"Library",
+						"DeleteBook.php"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "AuthorName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "AisleBook",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "isbnBook",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "BookName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "NewID",
+			"value": ""
+		},
+		{
+			"key": "BookID",
+			"value": ""
+		}
+	]
+}
