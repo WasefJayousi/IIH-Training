@@ -18,3 +18,4 @@ console.log("unsorted to sorted: "+unsorted_lst.sort())
 //اضافة عناصر جديدة في بداية المصفوفة
 lst.unshift(0)
 console.log("added 0 at the start of the array: "+lst)
+
