@@ -1,0 +1,247 @@
+{
+	"info": {
+		"_postman_id": "9159077d-3656-4aee-bc1a-157c45e0b85e",
+		"name": "Library assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28966214"
+	},
+	"item": [
+		{
+			"name": "Create bookshop",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"name\" , pm.variables.replaceIn(\"{{$randomFirstName}}\"))\r",
+							"pm.collectionVariables.set(\"city\" , pm.variables.replaceIn(\"{{$randomCity}}\"))\r",
+							"pm.collectionVariables.set(\"contactNumber\" , pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"))\r",
+							"pm.collectionVariables.set(\"email\" , pm.variables.replaceIn(\"{{$randomEmail}}\"))\r",
+							"pm.collectionVariables.set(\"Address\" , pm.variables.replaceIn(\"{{$randomStreetAddress}}\"))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"city\":\"{{city}}\",\r\n    \"name\":\"{{name}}\",\r\n    \"contactNumber\":\"{{contactNumber}}\",\r\n    \"email\":\"{{email}}\",\r\n    \"Address\":\"{{Address}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/addbookshop",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"addbookshop"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get bookshop by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/bookshop/25",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"bookshop",
+						"25"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get cities",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/bookshopcities",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"bookshopcities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get bookshop by name",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"some name\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/bookshopbyname",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"bookshopbyname"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get bookshop by email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/bookshop/Email/someemail@mail.com",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"bookshop",
+						"Email",
+						"someemail@mail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update name and email",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"some name\",\r\n    \"email\":\"wfarid311@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3001/bookshop/Update/4",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"bookshop",
+						"Update",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete bookshop by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3001/bookshop/Delete/5",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3001",
+					"path": [
+						"bookshop",
+						"Delete",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "city",
+			"value": ""
+		},
+		{
+			"key": "contactNumber",
+			"value": ""
+		},
+		{
+			"key": "email",
+			"value": ""
+		},
+		{
+			"key": "Address",
+			"value": ""
+		}
+	]
+}
