@@ -46,6 +46,7 @@ class Book {
 
 
 }
+const book = new Book(1,"wasef","any")
 
 let books = []
 
