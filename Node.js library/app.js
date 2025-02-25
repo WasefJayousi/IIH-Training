@@ -230,7 +230,7 @@ app.get("/bookshop/:shop_id" , (req,res)=> {
 
 // get cities by bookshop
 app.get("/bookshopCities" , (req,res)=> { 
-    const query = "select city from bookshop"
+    const query = "select distinct city from bookshop"
     connection.query(query, (err,results)=> {
         if(err) {
             return res.status(500).json({error:"Error retreiving from bookshop"})
