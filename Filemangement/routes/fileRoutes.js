@@ -4,7 +4,6 @@ const fs = require('fs').promises;
 const path = require('path');
 const pdfParser = require('pdf-parse');
 const PDFDocument = require('pdfkit');
-const { json } = require('stream/consumers');
 const router = express.Router();
 // Helper function to get absolute file path (prevents path traversal attacks)
 const getFilePath = (fileName) => path.join(__dirname, '..', 'storage', path.basename(fileName));
