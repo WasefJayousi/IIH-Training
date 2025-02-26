@@ -54,15 +54,32 @@ router.post('/write', async (req, res) => {
   }
 });
 router.post('/append', async (req, res) => {
-  const { fileName, content } = req.body;
-    if (checkext(fileName)) {
-      return res.status(400).json({ error: 'Only PDF files are allowed' });
-    }
   try {
-    await fs.appendFile(getFilePath(fileName), content, 'utf8');
-    res.json({ message: 'Content appended successfully' });
+    const { fileName, content } = req.body;
+
+    if (checkext(fileName)) {
+      console.log("file ext is not pdf!");
+      return res.status(400).json({ error: "file ext is not pdf!" });
+    }
+    const dataBuffer = await fs.readFile(getFilePath(fileName)); // get old content and concat with new content
+    const oldcontent = (await pdfParser(dataBuffer)).text
+
+    const filepath = getFilePath(fileName);
+    const doc = new PDFDocument();
+    const writeStream =  stream.createWriteStream(filepath);
+
+    doc.pipe(writeStream);
+    doc.text(oldcontent+content);
+    doc.end();
+
+    writeStream.on('finish', () => {
+      console.log("pdf file written successfully")
+      return res.status(201).json({ message: 'PDF file written successfully', filepath });
+    });
+
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.log(err);
+    return res.status(500).json({ error: err.message });
   }
 });
 
