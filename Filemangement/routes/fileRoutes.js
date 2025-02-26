@@ -17,8 +17,7 @@ const checkext = (fileName) => {
 router.get('/read', async (req, res) => {
   try {
     const fileName = req.query.fileName
-    const dataBuffer = await fs.readFile(getFilePath(fileName));
-    const pdfdata = await pdfParser(dataBuffer)
+    const pdfdata = await pdfParser(getFilePath(fileName)) // instead of doing fs.readfile and getting the data , it must get the filepath of the pdf and it extracts the data with no problems
     return res.status(200).json({ content: pdfdata.text });
   } catch(err) {
     return res.status(400).json({ error: err.message });
@@ -60,19 +59,18 @@ router.post('/append', async (req, res) => {
       console.log("file ext is not pdf!");
       return res.status(400).json({ error: "file ext is not pdf!" });
     }
-    const dataBuffer = await fs.readFile(getFilePath(fileName)); // get old content and concat with new content
-    const oldcontent = (await pdfParser(dataBuffer)).text
 
     const filepath = getFilePath(fileName);
+    const oldcontent = (await pdfParser(filepath)).text // get old content to append with new content
     const doc = new PDFDocument();
     const writeStream =  stream.createWriteStream(filepath);
 
     doc.pipe(writeStream);
-    doc.text(oldcontent+content);
+    doc.text(oldcontent + "\n" + content);
     doc.end();
 
     writeStream.on('finish', () => {
-      console.log("pdf file written successfully")
+      console.log("content appended successfully")
       return res.status(201).json({ message: 'PDF file written successfully', filepath });
     });
 
